@@ -15,7 +15,17 @@
 
     <script>
       $(document).ready(function(){
-          
+          if(typeof(EventSource) !== "undefined")
+          {
+            var source = new EventSource("{{url_for('sse.stream') }}");
+            source.onmessage = function(event) {
+              $("#p1").text(event.data);
+            };
+          }
+          else
+          {
+            alert("Your browser does not support Server-Sent Events.")
+          }
           });
       });
     </script>
@@ -23,10 +33,7 @@
   </head>
   <body>
 
-    <div id="div1">
-      <h2>Div 1</h2>
-      <p>The contents of this div will be replaced with new content form the server whenever it sends an event.</p>
-    </div>
+      <p id="p1">The contents of this paragraph will be replaced with new content form the server whenever it sends an event.</p>
 
     <button>Update div 1</button>
    
