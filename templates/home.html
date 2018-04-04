@@ -17,7 +17,7 @@
       $(document).ready(function(){
           if(typeof(EventSource) !== "undefined")
           {
-            var source = new EventSource("{{url_for('sse.stream') }}");
+            var source = new EventSource("/hello");
             source.onmessage = function(event) {
               $("#p1").text(event.data);
             };
