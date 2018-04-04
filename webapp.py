@@ -5,6 +5,7 @@ from flask_sse import sse
 app = Flask(__name__)
 
 app.debug = True #Change this to False for production
+app.config["REDIS_URL"] = "redis://localhost"
 
 @app.route('/')
 def home():
