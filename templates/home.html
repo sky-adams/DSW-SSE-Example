@@ -1,43 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
-     <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-    <script>
-      $(document).ready(function(){
-          if(typeof(EventSource) !== "undefined")
-          {
-            var source = new EventSource("/hello");
-            source.onmessage = function(event) {
-              $("#p1").text(event.data);
-            };
-          }
-          else
-          {
-            alert("Your browser does not support Server-Sent Events.")
-          }
-          });
-      });
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Flask-SocketIO Test</title>
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(document).ready(function() {
+            // Use a "/test" namespace.
+            // An application can open a connection on multiple namespaces, and
+            // Socket.IO will multiplex all those connections on a single
+            // physical channel. If you don't care about multiple channels, you
+            // can set the namespace to an empty string.
+            namespace = '/';
+            // Connect to the Socket.IO server.
+            // The connection URL has the following format:
+            //     http[s]://<domain>:<port>[/<namespace>]
+            var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
+            
+			//Event handler for the start event.
+			socket.on('start', function(msg) {
+                $('#start').text(msg);
+            });
+			
+            // Event handler for server sent data.
+            // Whenever the server emits data
+            // to the client, the data is displayed in the 
+			// "Received" section of the page.
+            socket.on('my_response', function(msg) {
+                $('#log').append('<br>' + msg);
+            });
+            
+        });
     </script>
-
-  </head>
-  <body>
-
-      <p id="p1">The contents of this paragraph will be replaced with new content form the server whenever it sends an event.</p>
-
-      <h2>This text isn't updated.</h2>
-
-
-   
-  </body>
+</head>
+<body>
+    <h1>Flask-SocketIO Demo</h1>
+    <p>Async mode is: <b>{{ async_mode }}</b></p>
+	
+	<p id="start"></p>
+    <h2>Receive:</h2>
+    <div id="log"></div>
+</body>
 </html>
