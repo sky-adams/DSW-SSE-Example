@@ -6,7 +6,6 @@ from flask_socketio import SocketIO, emit, join_room, leave_room, \
     close_room, rooms, disconnect
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app, async_mode=None)
 thread = None
 thread_lock = Lock()
@@ -15,9 +14,9 @@ thread_lock = Lock()
 def background_thread():
     count = 0
     while True:
-        socketio.sleep(10) #wait 10 seconds
+        socketio.sleep(5) #wait 5 seconds
         count += 1 #add 1 to count
-        socketio.emit('my_response', count) #send count to all clients
+        socketio.emit('count_event', count) #send count to all clients
 
 @app.route('/')
 def index():
