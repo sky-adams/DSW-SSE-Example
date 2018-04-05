@@ -16,7 +16,7 @@ def background_thread():
     while True:
         socketio.sleep(5) #wait 5 seconds
         count += 1 #add 1 to count
-        socketio.emit('count_event', count) #send count to all clients
+        socketio.emit('count_event', count) #send count to ALL clients (see Broadcasting section of https://flask-socketio.readthedocs.io/en/latest/)
 
 @app.route('/')
 def index():
@@ -30,7 +30,7 @@ def test_connect():
         #create one thread for all clients
         if thread is None:
             thread = socketio.start_background_task(target=background_thread)
-    emit('start', 'Connected')
+    emit('start', 'Connected') #send data to the client that just connected
     #to use emit: emit(event, data)
 
 if __name__ == '__main__':
