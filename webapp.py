@@ -13,12 +13,11 @@ def index():
     return render_template('home.html', async_mode=socketio.async_mode)
 
 
-@socketio.on('connect')
-def test_connect():
-    new_user = request.args['username']
-    emit('start', 'You joined as ' + new_user) #send data to the client that just connected
+@socketio.on('setUsername')
+def set_username(new_user):
+    emit('userJoined', new_user) #send the username back to the client as confirmation that they have joined
     #to use emit: emit(event, data)
-    socketio.emit('new_user_event', new_user) #send data to ALL clients
+    socketio.emit('newUserEvent', new_user) #send the new user's name to ALL clients
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)
