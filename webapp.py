@@ -15,6 +15,8 @@ def index():
 
 @socketio.on('setUsername')
 def set_username(new_user):
+    print("here")
+    print(new_user)
     emit('userJoined', new_user) #send the username back to the client as confirmation that they have joined
     #to use emit: emit(event, data)
     socketio.emit('newUserEvent', new_user) #send the new user's name to ALL clients
