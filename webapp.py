@@ -13,7 +13,7 @@ def index():
 def test_connect():
     print('a client connected')
 
-@socketio.on('setUsername')
+@socketio.on('setUsername', methods=['GET', 'POST'])
 def set_username(new_user):
     print("here")
     print(new_user)
