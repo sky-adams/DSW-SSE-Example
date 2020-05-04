@@ -13,8 +13,8 @@ def index():
 def test_connect():
     print('a client connected')
 
-@socketio.on('setUsername', methods=['GET', 'POST'])
-def set_username(new_user):
+@socketio.on('setUsername')
+def set_username(new_user, methods=['GET', 'POST']):
     print("here")
     print(new_user)
     emit('userJoined', new_user) #send the username back to the client as confirmation that they have joined
