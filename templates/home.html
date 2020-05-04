@@ -13,7 +13,7 @@
 			// Connect to the Socket.IO server.
 			// The connection URL has the following format:
 			// http[s]://<domain>:<port>[/<namespace>]
-            		var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace, {query: {token: username}});
+            		var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace, headers={'username': username});
 		});
 		
 		//Event handler for the start event.
