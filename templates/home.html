@@ -6,29 +6,29 @@
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.min.js"></script>
     <script type="text/javascript" charset="utf-8">
         $(document).ready(function() {
-		var socket;
+		
+		// Connect to the Socket.IO server.
+		var socket = io();
+		
+		var username;
 		
 		$('#nameform').submit(function( event ) {
-			var username = $('#fname').val(); //get the name the user typed in
-				     
-    			var namespace = '/';
-			// Connect to the Socket.IO server.
-			// The connection URL has the following format:
-			// http[s]://<domain>:<port>[/<namespace>]
-            		socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace, query={'username': username});
+			var name = $('#fname').val(); //get the name the user typed in
+            		socket.emit('setUsername', name}); //send a setUsername event to the server
 		});
 		
-		//Event handler for the start event.
-		socket.on('start', function(msg) {
-                	$('#start').text(msg);//display the message in a paragraph
+		//Event handler for the userJoined event.
+		socket.on('userJoined', function(msg) {
+			username = msg;
+                	$('#start').text('You joined as ' + msg);//display the message in a paragraph
             	});
            
 			
-            	// Event handler for new_user_event.
-            	// Whenever the server emits a new_user_event
+            	// Event handler for newUserEvent.
+            	// Whenever the server emits a newUserEvent
             	// to the client, the data is displayed in the 
 		// "New Users" section of the page.
-            	socket.on('new_user_event', function(msg) {
+            	socket.on('newUserEvent', function(msg) {
                 	$('#log').append('<br>' + msg);
             	});
             
