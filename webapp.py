@@ -5,11 +5,11 @@ from flask import Flask, render_template, session, request
 from flask_socketio import SocketIO, emit, join_room, leave_room, close_room, rooms, disconnect
 
 app = Flask(__name__)
-socketio = SocketIO(app, async_mode=None)
+socketio = SocketIO(app)
 
 @app.route('/')
 def index():
-    return render_template('home.html', async_mode=socketio.async_mode)
+    return render_template('home.html')
 
 
 @socketio.on('setUsername')
