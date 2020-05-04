@@ -6,34 +6,44 @@
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.min.js"></script>
     <script type="text/javascript" charset="utf-8">
         $(document).ready(function() {
-            namespace = '/';
-            // Connect to the Socket.IO server.
-            // The connection URL has the following format:
-            //     http[s]://<domain>:<port>[/<namespace>]
-            var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
-            
-			//Event handler for the start event.
-			socket.on('start', function(msg) {
-                $('#start').text(msg);
-            });
+		$('#nameform').on('submit', function () {
+			username = $(#fname).val(); //get the name the user typed in
+				     
+    			namespace = '/';
+			// Connect to the Socket.IO server.
+			// The connection URL has the following format:
+			// http[s]://<domain>:<port>[/<namespace>]
+            		var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace, {query: {token: username}});
+		});
+		
+		//Event handler for the start event.
+		socket.on('start', function(msg) {
+                	$('#start').text(msg);//display the message in a paragraph
+            	});
+           
 			
-            // Event handler for count_event.
-            // Whenever the server emits count_event data
-            // to the client, the data is displayed in the 
-			// "Received" section of the page.
-            socket.on('count_event', function(msg) {
-                $('#log').append('<br>' + msg);
-            });
+            	// Event handler for new_user_event.
+            	// Whenever the server emits a new_user_event
+            	// to the client, the data is displayed in the 
+		// "New Users" section of the page.
+            	socket.on('new_user_event', function(msg) {
+                	$('#log').append('<br>' + msg);
+            	});
             
         });
     </script>
 </head>
 <body>
     <h1>Flask-SocketIO Demo</h1>
+	<form id="nameform">
+  		<label for="fname">First name:</label><br>
+  		<input type="text" id="fname"><br>
+  		<input type="submit" value="Submit">
+	</form> 
 	
 	<p id="start"></p>
 	
-    <h2>Receive:</h2>
+    <h2>New Users:</h2>
     <div id="log"></div>
 	
 </body>
