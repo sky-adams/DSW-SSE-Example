@@ -29,7 +29,10 @@
             	// to the client, the data is displayed in the 
 		// "New Users" section of the page.
             	socket.on('newUserEvent', function(msg) {
-                	$('#log').append('<br>' + msg);
+			if(username) //only show new users after connecting
+			{
+                		$('#log').append('<br>' + msg);
+			}
             	});
             
         });
