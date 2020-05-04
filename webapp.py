@@ -9,6 +9,9 @@ socketio = SocketIO(app)
 def index():
     return render_template('home.html')
 
+@socketio.on('connect')
+def test_connect():
+    print('a client connected')
 
 @socketio.on('setUsername')
 def set_username(new_user):
