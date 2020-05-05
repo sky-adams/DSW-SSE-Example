@@ -14,6 +14,7 @@ def index():
 
 @socketio.on('connect')
 def test_connect():
+    emit('message','You connected via SocketIO.')
     print('a client connected')
 
 @socketio.on('setUsername')
