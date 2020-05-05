@@ -6,7 +6,7 @@ import eventlet
 eventlet.monkey_patch()
 
 app = Flask(__name__)
-socketio = SocketIO(app)
+socketio = SocketIO(app, engineio_logger=True)
 
 @app.route('/')
 def index():
