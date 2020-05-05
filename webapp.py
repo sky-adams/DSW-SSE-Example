@@ -26,4 +26,4 @@ def set_username(data, methods=['GET', 'POST']):
     socketio.emit('newUserEvent', data['new_user']) #send the new user's name to ALL clients
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True)
+    socketio.run(app, debug=True, port=5000)
