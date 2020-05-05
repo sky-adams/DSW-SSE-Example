@@ -18,12 +18,12 @@ def test_connect():
     emit('start', 'You connected to the server via SocketIO.')
 
 @socketio.on('setUsername')
-def set_username(new_user, methods=['GET', 'POST']):
+def set_username(data, methods=['GET', 'POST']):
     print("here")
-    print(new_user)
-    emit('userJoined', new_user) #send the username back to the client as confirmation that they have joined
+    print(data)
+    emit('userJoined', data['new_user']) #send the username back to the client as confirmation that they have joined
     #to use emit: emit(event, data)
-    socketio.emit('newUserEvent', new_user) #send the new user's name to ALL clients
+    socketio.emit('newUserEvent', data['new_user']) #send the new user's name to ALL clients
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)
