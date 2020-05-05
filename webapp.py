@@ -15,6 +15,7 @@ def index():
 @socketio.on('connect')
 def test_connect():
     print('a client connected')
+    emit('start', 'You connected to the server via SocketIO.')
 
 @socketio.on('setUsername')
 def set_username(new_user, methods=['GET', 'POST']):
