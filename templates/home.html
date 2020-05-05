@@ -12,7 +12,8 @@
             	// Connect to the Socket.IO server.
             	// The connection URL has the following format:
             	//     http[s]://<domain>:<port>[/<namespace>]
-            	var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
+            	//var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
+		var socket = io(location.protocol + '//' + document.domain + ':' + location.port + namespace,{transports: ['websocket']});
 		socket.on('connect', function() {
         		alert('I\'m connected!');
     		});
