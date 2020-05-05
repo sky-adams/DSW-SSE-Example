@@ -7,4 +7,3 @@ wheel
 gunicorn
 flask-socketio==0.6.0
 eventlet
-gevent-socketio
