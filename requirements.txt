@@ -4,6 +4,6 @@ Jinja2
 MarkupSafe
 Werkzeug
 wheel
-gunicorn
+gunicorn==18.0.0
 flask-socketio
 eventlet
