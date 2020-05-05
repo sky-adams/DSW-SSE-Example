@@ -20,10 +20,15 @@
             		socket.emit('setUsername', name); //send a setUsername event to the server
 		});
 		
+		//Event handler for the start event.
+		socket.on('start', function(msg) {
+                	$('#start').text(msg);//display the message in a paragraph
+            	});
+		
 		//Event handler for the userJoined event.
 		socket.on('userJoined', function(msg) {
 			username = msg;
-                	$('#start').text('You joined as ' + msg);//display the message in a paragraph
+                	$('#message').text('You joined as ' + msg);//display the message in a paragraph
             	});
            
 			
@@ -50,6 +55,7 @@
 	</form> 
 	
 	<p id="start"></p>
+	<p id="message"></p>
 	
     <h2>New Users:</h2>
     <div id="log"></div>
