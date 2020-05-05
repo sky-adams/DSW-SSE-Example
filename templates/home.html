@@ -8,8 +8,11 @@
     <script type="text/javascript" charset="utf-8">
         $(document).ready(function() {
 		
+            	namespace = '/';
             	// Connect to the Socket.IO server.
-            	var socket = io.connect();
+            	// The connection URL has the following format:
+            	//     http[s]://<domain>:<port>[/<namespace>]
+            	var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
 		socket.on('connect', function() {
         		alert('I\'m connected!');
     		});
