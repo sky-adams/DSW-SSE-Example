@@ -5,5 +5,5 @@ MarkupSafe
 Werkzeug
 wheel
 gunicorn==18.0.0
-flask-socketio
+flask-socketio==2.2.0
 eventlet
