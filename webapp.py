@@ -1,6 +1,9 @@
 from threading import Lock
 from flask import Flask, render_template, session, request
 from flask_socketio import SocketIO, emit, join_room, leave_room, close_room, rooms, disconnect
+import eventlet
+
+eventlet.monkey_patch()
 
 app = Flask(__name__)
 socketio = SocketIO(app)
