@@ -1,1 +1,1 @@
-web: gunicorn -k eventlet webapp:app
+web: gunicorn --preload -k eventlet webapp:app
